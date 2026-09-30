@@ -1,5 +1,7 @@
 # Brief
 
+![CI](https://github.com/parthsh17/brief/actions/workflows/ci.yml/badge.svg)
+
 Brief is a financial-news dashboard that turns RSS headlines into concise, explainable market intelligence.
 
 ## What it does
@@ -11,7 +13,7 @@ Brief is a financial-news dashboard that turns RSS headlines into concise, expla
 - Tracks ingestion, processing, API-call, source, token, and cleanup metrics.
 - Deletes articles after 24 hours.
 
-Google OAuth is the only sign-in method. Authentication uses a signed HttpOnly session cookie. There are no passwords, JWTs, refresh tokens, settings pages, search, trending, chat, RAG, embeddings, or ChromaDB.
+Google OAuth is the only sign-in method. Authentication uses a signed HttpOnly session cookie.
 
 ## Technology
 
@@ -151,6 +153,19 @@ git diff --cached
 ```
 
 The root `.gitignore` excludes environment files, dependencies, virtual environments, build output, logs.
+
+## GitHub Actions
+
+The workflow at `.github/workflows/ci.yml` runs on pushes to `main` and pull requests targeting `main`.
+
+It performs backend compilation and tests, frontend tests/lint/build checks, Docker Compose validation, and backend/frontend Docker image builds. Successful pushes to `main` publish images to GitHub Container Registry:
+
+```text
+ghcr.io/parthsh17/brief-backend:latest
+ghcr.io/parthsh17/brief-frontend:latest
+```
+
+The workflow uses the automatically provided `GITHUB_TOKEN`; application credentials are not required for CI. Keep MongoDB, Redis, Google OAuth, Groq, and session secrets out of GitHub unless a future integration-test job explicitly needs them.
 
 ## Project documentation
 

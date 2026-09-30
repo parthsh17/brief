@@ -48,6 +48,7 @@ Dockerfile.frontend        Production React/Nginx image
 docker-compose.yml         Optional backend/frontend container orchestration
 \.dockerignore             Docker build exclusions
 docs/                      Supplemental project notes only
+.github/workflows/ci.yml  Backend, frontend, and Docker CI pipeline
 ```
 
 ## Runtime behavior
