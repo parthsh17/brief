@@ -1,3 +1,4 @@
+import asyncio
 from datetime import UTC, datetime
 
 from fastapi import APIRouter
@@ -12,10 +13,10 @@ router = APIRouter(tags=["health"])
 async def health() -> dict[str, object]:
     checks: dict[str, str] = {"groq": "configured" if get_settings().groq_api_key else "not_configured", "scheduler": "available"}
     if client:
-        try: await client.admin.command("ping"); checks["mongodb"] = "ok"
+        try: await asyncio.wait_for(client.admin.command("ping"), timeout=4); checks["mongodb"] = "ok"
         except Exception: checks["mongodb"] = "unavailable"
     else: checks["mongodb"] = "not_connected"
-    try: await redis.ping(); checks["redis"] = "ok"
+    try: await asyncio.wait_for(redis.ping(), timeout=4); checks["redis"] = "ok"
     except Exception: checks["redis"] = "unavailable"
     return {
         "success": True, "data": {"status": "ok", "timestamp": datetime.now(UTC).isoformat(), "checks": checks},

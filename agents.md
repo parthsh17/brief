@@ -11,7 +11,7 @@ Google OAuth is the only authentication method. OAuth creates a signed HttpOnly 
 - Frontend: React 19, JavaScript/JSX, Vite, Tailwind CSS, React Router, date-fns.
 - Backend: Python, FastAPI, Motor, Pydantic, Authlib, Redis, APScheduler, feedparser, httpx, Groq.
 - Databases/services: MongoDB Atlas, Redis Cloud, Google OAuth, Groq.
-- Local orchestration: root Node script. MongoDB Atlas and Redis Cloud are configured through `backend/.env`.
+- Local orchestration: root Node script or Docker Compose. MongoDB Atlas and Redis Cloud are configured through `backend/.env`.
 
 ## Repository map
 
@@ -43,6 +43,10 @@ frontend/
   src/test/                Vitest and Testing Library tests
   vite.config.mjs          Vite config and local API proxy
 scripts/dev.mjs            Starts backend and frontend together on Windows/macOS/Linux
+Dockerfile.backend         Production FastAPI image
+Dockerfile.frontend        Production React/Nginx image
+docker-compose.yml         Optional backend/frontend container orchestration
+\.dockerignore             Docker build exclusions
 docs/                      Supplemental project notes only
 ```
 

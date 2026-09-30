@@ -23,6 +23,7 @@ Google OAuth is the only sign-in method. Authentication uses a signed HttpOnly s
 - Google OAuth
 - Groq structured analysis
 - APScheduler
+- Docker
 
 ## Repository contents
 
@@ -33,7 +34,41 @@ scripts/       Cross-platform local development launcher
 agents.md      Instructions and architecture reference for coding agents
 ```
 
-This project uses local development commands only. Docker configuration and GitHub Actions workflows are not included.
+## Docker setup
+
+Docker is optional. The Compose setup runs the FastAPI backend and the production-built React frontend. MongoDB Atlas and Redis Cloud remain external services configured through `backend/.env`.
+
+Before starting, create `backend/.env` and fill in the real MongoDB, Redis, Google OAuth, Groq, and session values. For Google OAuth, use this callback URL:
+
+```text
+http://localhost:8000/api/auth/google/callback
+```
+
+Build and start the containers from the repository root:
+
+```bash
+docker compose up --build
+```
+
+Open the application at `http://localhost:5173`. The frontend Nginx container proxies `/api` requests to the backend container. The backend is also available directly at `http://localhost:8000`.
+
+Useful Docker commands:
+
+```bash
+# Start in the background
+docker compose up --build -d
+
+# Follow application logs
+docker compose logs -f backend frontend
+
+# Check running containers
+docker compose ps
+
+# Stop and remove the containers
+docker compose down
+```
+
+Do not put credentials in `docker-compose.yml` or commit `backend/.env`.
 
 ## Local setup
 

@@ -5,7 +5,12 @@ from redis.asyncio import Redis
 
 from app.core.config import get_settings
 
-redis = Redis.from_url(get_settings().redis_url, decode_responses=True)
+redis = Redis.from_url(
+    get_settings().redis_url,
+    decode_responses=True,
+    socket_connect_timeout=5,
+    socket_timeout=5,
+)
 
 
 async def get_json(key: str) -> Any | None:
