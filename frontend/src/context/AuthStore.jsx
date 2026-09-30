@@ -14,7 +14,7 @@ export function AuthProvider({ children }) {
       .catch(() => {})
       .finally(() => setIsLoading(false));
   }, []);
-  const login = () => { window.location.href = `${API_BASE}/api/auth/google`; };
+  const login = () => { window.location.assign(`${API_BASE}/api/auth/google`); };
   const logout = async () => { await fetch(`${API_BASE}/api/auth/logout`, { method: 'POST', credentials: 'include' }); setUser(null); };
   return _jsx(AuthStoreContext.Provider, { value: { user, isLoading, login, logout }, children });
 }

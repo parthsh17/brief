@@ -1,5 +1,4 @@
 import { jsx as _jsx, Fragment as _Fragment } from "react/jsx-runtime";
-import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthStoreContext';
 export function ProtectedRoute({ children }) {
