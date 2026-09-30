@@ -7,7 +7,7 @@ const INSIGHT_TEXT = { Bullish: 'text-bullish', Bearish: 'text-bearish', Neutral
 
 export function NewsCard({ item, style }) {
   const [showExplanation, setShowExplanation] = useState(false);
-  const timeAgo = formatDistanceToNow(new Date(item.timestamp || Date.now()), { addSuffix: true });
+  const timeAgo = item.timestamp ? formatDistanceToNow(new Date(item.timestamp), { addSuffix: true }) : '-';
   return <article style={style} className="bg-surface border-2 border-white neo-shadow flex flex-col gap-4 p-5 animate-slide-up">
     <div className="flex items-start justify-between gap-3"><div className="flex-1"><p className="text-xs font-bold uppercase tracking-widest text-white/50 mb-1">{item.source}</p><h2 className="text-sm font-bold text-white leading-snug line-clamp-3">{item.originalTitle}</h2></div><div className="shrink-0 text-right"><SentimentBadge sentiment={item.sentiment} size="sm" />{item.confidence != null && <p className="text-[9px] text-white/40 mt-2">{Math.round(item.confidence * 100)}% confidence</p>}</div></div>
     {item.topics?.length > 0 && <div className="flex flex-wrap gap-1">{item.topics.map((topic) => <span key={topic} className="text-[9px] uppercase border border-white/20 px-2 py-1 text-white/50">{topic}</span>)}</div>}

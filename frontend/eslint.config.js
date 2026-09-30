@@ -20,5 +20,12 @@ export default defineConfig([
         ecmaFeatures: { jsx: true },
       },
     },
+    rules: {
+      // The project uses the automatic JSX runtime; core ESLint does not
+      // reliably count JSX references as variable usage without eslint-plugin-react.
+      'no-unused-vars': 'off',
+      // Data-fetching effects legitimately update state from async callbacks.
+      'react-hooks/set-state-in-effect': 'off',
+    },
   },
 ])
